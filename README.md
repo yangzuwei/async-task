@@ -1,7 +1,8 @@
 # async-task
 simple task tools by swoole
 按照swoole官网中的例子改写的
-客户端使用
+客户端使用 swoole client 编写
+
 
 # 用法
 
