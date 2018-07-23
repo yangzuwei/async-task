@@ -21,3 +21,5 @@ simple task tools by swoole
     $command = 'php /path/artisan send message';
    （new SwooleClient\TaskClient())->sendCommand($command);
 ```
+
+:dog:
