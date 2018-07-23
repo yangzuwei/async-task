@@ -1,0 +1,23 @@
+{
+    "name": "task/sendmsg",
+    "authors": [
+        {
+            "name": "wilson",
+            "email": "316193839@qq.com"
+        }
+    ],
+    "require": {
+        "monolog/monolog": "^1.23",
+        "catfan/medoo": "^1.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Task\\": "task/",
+            "DB\\":"db/",
+            "SwooleClient\\":"src/client/",
+            "SwooleServer\\":"src/server/",
+            "Test\\":"tests"
+        },
+        "classmap":["config/"]
+    }
+}
