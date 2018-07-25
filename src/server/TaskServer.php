@@ -35,16 +35,14 @@ class TaskServer
     {
         //投递异步任务
         $task_id = $serv->task($data);
-        $logger = new Logger('task_log');
-        $logger->pushHandler(new StreamHandler('./logs/receive.log', Logger::INFO));
-        $logger->addInfo("AsyncTask[$task_id] receive: $data" . PHP_EOL);
-        echo "Dispath AsyncTask: id=$task_id\n";
+
+        echo "Dispath $data AsyncTask: id=$task_id\n";
     }
 
     public function onTask($serv, $task_id, $from_id, $data)
     {
         //处理任务 任务必须要实现 TaskInterface接口
-        echo "New AsyncTask[id=$task_id]" . PHP_EOL;
+        echo "New AsyncTask[id=$task_id] data is $data" . PHP_EOL;
         $task = unserialize($data);
         if ($task instanceof TaskInterface) {
             $task->handler();//集成task任务接口方式
@@ -59,8 +57,6 @@ class TaskServer
     //处理异步任务的结果
     public function onFinish($serv, $task_id, $data)
     {
-        $logger = new Logger('task_log');
-        $logger->pushHandler(new StreamHandler('./logs/result.log', Logger::INFO));
-        $logger->addInfo("AsyncTask[$task_id] Finish: $data" . PHP_EOL);
+
     }
 }
