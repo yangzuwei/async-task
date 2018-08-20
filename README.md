@@ -6,7 +6,15 @@ simple task tools by swoole
 
 # 用法
 
+## 启动server
 
+分别执行`bin`目录下对应的shell脚本即可，
+- 启动 `./bin/start.sh`
+- 关闭 `./bin/stop.sh`
+- 重启 `./bin/restart.sh`
+- 热更新 `./bin/reload.sh`
+
+## 添加任务
 在其他地方使用的时候只需要类似如下方式
 
 方式一：在 `task` 文件夹中实现 `TaskInterface` 接口。按照例子中去实现接口
