@@ -2,4 +2,4 @@
 
 include dirname(__DIR__) . '/vendor/autoload.php';
 
-new SwooleServer\TaskServer();
+(new SwooleServer\TaskServer())->run();
