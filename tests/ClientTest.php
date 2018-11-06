@@ -2,10 +2,9 @@
 
 include dirname(__DIR__) . '/vendor/autoload.php';
 
-use SwooleClient\TaskClient;
 use Task\Lamb;
 
 $lamb = new Lamb('Mary');
-(new TaskClient())->sendTask($lamb);
+(new TaskClient\SwooleSender())->sendTask($lamb);
 
-
+(new TaskClient\CommonSender())->sendCommand('echo "123" >> number.txt');

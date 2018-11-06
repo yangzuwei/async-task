@@ -2,12 +2,14 @@
 
 namespace SwooleServer;
 
-use Task\TaskInterface;
+use Task\AbstractTask;
+use DB\MysqlPDO;
 
 class TaskServer
 {
     private $serv;
     private $rootPath;
+    protected static $DB;
 
     public function __construct()
     {
@@ -24,6 +26,7 @@ class TaskServer
             "task_ipc_mode " => 3,  //使用消息队列通信，并设置为争抢模式
             "log_file" => $this->rootPath . "/logs/taskqueueu.log",//日志
         ));
+        self::$DB = (new MysqlPDO())->getInstance();
     }
 
     public function run()
@@ -45,28 +48,37 @@ class TaskServer
     public function onReceive($serv, $fd, $from_id, $data)
     {
         //投递异步任务
-        $task_id = $serv->task($data);
-        echo "Dispath $data ---> AsyncTask: id=$task_id\n ";
+        $tasks = explode(PHP_EOL,$data);
+        foreach ($tasks as $data){
+            if($data != ''){
+                $task_id = $serv->task($data);
+                echo "Dispath $data ---> AsyncTask: id=$task_id\n ";
+            }
+        }
     }
 
     public function onTask($serv, $task_id, $from_id, $data)
     {
-        //处理任务 任务必须要实现 TaskInterface接口
         echo date('Y-m-d H:i:s') . "New AsyncTask[id=$task_id] ---> $data" . PHP_EOL;
+        //处理任务 任务必须要实现 TaskInterface接口
         $task = unserialize($data);
-        if ($task instanceof TaskInterface) {
-            $task->handler();//集成task任务接口方式
-            $result = 'task is TaskInterface';
+        if ($task instanceof AbstractTask) {
+            //注入连接池资源
+            $task->setDB(self::$DB);
+            $result = $task->handler();
+            $cate = 'object';
+            echo $cate.PHP_EOL;
         } else {
-            exec($task);//外部命令方式
-            $result = 'task is command';
+            $result = exec($task);//外部命令方式
+            $cate = 'command';
+            echo $cate.PHP_EOL;
         }
-        $serv->finish($result);
+        $serv->finish("this is task $cate $data and it's result is {$result} " . PHP_EOL);
     }
 
     //处理异步任务的结果
     public function onFinish($serv, $task_id, $data)
     {
-
+        echo date('Y-m-d H:i:s') . "Finished task [id=$task_id] ---> $data" . PHP_EOL;
     }
 }

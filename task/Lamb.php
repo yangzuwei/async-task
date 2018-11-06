@@ -2,7 +2,7 @@
 
 namespace Task;
 
-class Lamb implements TaskInterface
+class Lamb extends AbstractTask
 {
     private $name;
     public function __construct($name)

@@ -13,7 +13,7 @@
         "psr-4": {
             "Task\\": "task/",
             "DB\\":"db/",
-            "SwooleClient\\":"src/client/",
+            "TaskClient\\":"src/client/",
             "SwooleServer\\":"src/server/",
             "Test\\":"tests"
         },
