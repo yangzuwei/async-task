@@ -6,7 +6,7 @@ simple task tools by swoole
 2. 使用 stream_socket_client 实现
 
 # 原理
-通过 <font color=red>Swoole 的TCP Server </font> 接收客户端发过来的消息，消息都是经过序列化的，用 PHP_EOL 拼接，在 Server 工作进程中再进行拆分。
+通过<font color="#dd0000">Swoole 的TCP Server </font> 接收客户端发过来的消息，消息都是经过序列化的，用 PHP_EOL 拼接，在 Server 工作进程中再进行拆分。
 按照消息类型（目前只支持`AbstractTask`类和linux系统shell类命令）分别运行。
 DB采用Mysql PDO 实现，配置了持久化。
 Server中的DB资源都是在运行时进行注入的，运行时可以复用一个DB连接，减少了资源消耗。
