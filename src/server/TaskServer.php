@@ -2,8 +2,8 @@
 
 namespace SwooleServer;
 
+use DB\MedooPDO;
 use Task\AbstractTask;
-use DB\MysqlPDO;
 
 class TaskServer
 {
@@ -26,7 +26,7 @@ class TaskServer
             "task_ipc_mode " => 3,  //使用消息队列通信，并设置为争抢模式
             "log_file" => $this->rootPath . "/logs/taskqueueu.log",//日志
         ));
-        self::$DB = (new MysqlPDO())->getInstance();
+        self::$DB = new MedooPDO();
     }
 
     public function run()
@@ -48,9 +48,9 @@ class TaskServer
     public function onReceive($serv, $fd, $from_id, $data)
     {
         //投递异步任务
-        $tasks = explode(PHP_EOL,$data);
-        foreach ($tasks as $data){
-            if($data != ''){
+        $tasks = explode(PHP_EOL, $data);
+        foreach ($tasks as $data) {
+            if ($data != '') {
                 $task_id = $serv->task($data);
                 echo "Dispath $data ---> AsyncTask: id=$task_id\n ";
             }
@@ -66,12 +66,20 @@ class TaskServer
             //注入连接池资源
             $task->setDB(self::$DB);
             $result = $task->handler();
+            //如果task执行结果中 DB掉线则重连
+            if ($task->isDBGone()) {
+                self::$DB = null;
+                self::$DB = new MedooPDO();
+                //重试一次任务执行
+                $task->setDB(self::$DB);
+                $result = $task->handler();
+            }
             $cate = 'object';
-            echo $cate.PHP_EOL;
+            echo $cate . PHP_EOL;
         } else {
             $result = exec($task);//外部命令方式
             $cate = 'command';
-            echo $cate.PHP_EOL;
+            echo $cate . PHP_EOL;
         }
         $serv->finish("this is task $cate $data and it's result is {$result} " . PHP_EOL);
     }
