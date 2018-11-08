@@ -11,7 +11,7 @@ class TaskServer
     private $rootPath;
 
     protected static $DB = [];
-    const DB_POOL_SIZE = 2;
+    const DB_POOL_SIZE = 1;
 
     public function __construct()
     {
@@ -104,7 +104,6 @@ class TaskServer
     public function tryTask(AbstractTask $task)
     {
         $db = array_pop(self::$DB);
-        var_dump(count(self::$DB));
         //注入连接池资源
         $task->setDB($db);
         $task->handler();
