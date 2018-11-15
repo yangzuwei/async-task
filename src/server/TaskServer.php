@@ -27,6 +27,9 @@ class TaskServer
             'task_worker_num' => $config['swoole_task_worker_num'],  //task进程的数量
             "task_ipc_mode " => 3,  //使用消息队列通信，并设置为争抢模式
             "log_file" => $this->rootPath . "/logs/taskqueueu.log",//日志
+            'chroot' => '/tmp/root',
+            'user' => 'www-data',
+            'group' => 'www-data',
         ));
     }
 

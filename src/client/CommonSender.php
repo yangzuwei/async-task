@@ -11,16 +11,14 @@ namespace TaskClient;
 
 use Task\AbstractTask;
 
-class CommonSender
+class CommonSender extends AbstractSender
 {
-    private $fp;
-
     public function __construct()
     {
-        $config = require dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'swoole.php';
+        $config = $this->getConfig();
 
-        $this->fp = stream_socket_client("tcp://" . $config['ip'] . ":" . $config['swoole_task_server_port'], $errno, $errstr);
-        if (!$this->fp) {
+        $this->client = stream_socket_client("tcp://" . $config['ip'] . ":" . $config['swoole_task_server_port'], $errno, $errstr);
+        if (!$this->client) {
             echo "ERROR: $errno - $errstr\n";
         }
     }
@@ -28,17 +26,17 @@ class CommonSender
     public function sendTask(AbstractTask $task)
     {
         $serializedTask = serialize($task);
-        return fwrite($this->fp, $serializedTask . PHP_EOL, strlen($serializedTask) + 1);
+        return fwrite($this->client, $serializedTask . PHP_EOL, strlen($serializedTask) + 1);
     }
 
     public function sendCommand($command)
     {
         $serializedCommand = serialize($command);
-        return fwrite($this->fp, $serializedCommand . PHP_EOL, strlen($serializedCommand) + 1);
+        return fwrite($this->client, $serializedCommand . PHP_EOL, strlen($serializedCommand) + 1);
     }
 
     public function __destruct()
     {
-        fclose($this->fp);
+        fclose($this->client);
     }
 }
