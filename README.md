@@ -50,8 +50,8 @@ return [
 
 ```php
 <?php
-    $command = 'php /path/artisan send message';
-   （new TaskClient\SwooleSender())->sendCommand($command);
+$command = 'echo "hello world"';
+（new TaskClient\SwooleSender())->sendCommand($command);
 
 ```
 
