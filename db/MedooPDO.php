@@ -17,7 +17,7 @@ class MedooPDO extends Medoo
 
     public function __construct()
     {
-        $this->config = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'db.php';
+        $this->config = getConfig('db');
         $options = [
             'database_type' => 'mysql',
             'database_name' => $this->config['database_name'],

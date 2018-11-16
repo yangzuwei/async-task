@@ -7,5 +7,6 @@
  */
 
 return [
-    'echo "hello world"',
+    'echo "123" >> tests/number.txt',
+    'rm tests/number.txt',
 ];

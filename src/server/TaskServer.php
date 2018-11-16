@@ -76,7 +76,7 @@ class TaskServer
         //处理任务 任务必须要实现 TaskInterface接口
         $task = unserialize($data);
         $cate = '';
-
+        $result = '无结果';
         if (is_object($task)&&$task instanceof AbstractTask) {
             $result = $this->runTask($task);
             $cate = 'object';
@@ -89,7 +89,7 @@ class TaskServer
 
         echo $cate . PHP_EOL;
         if ($cate == 'command') {
-            $result = $result == false ? '非法命令' : $result;
+            $result = $result === false ? '非法命令' : $result;
         }
         $serv->finish("this is task $cate $data and it's result is {$result} " . PHP_EOL);
     }
