@@ -69,5 +69,5 @@ CI中只用到了客户端，所以我们只需要放IP和端口字段就可以�
 ```json
   "classmap":["/Users/yangzuwei/Desktop/php/api/application/task"],
 ```
-
+然后执行在本框架目录下执行` composer dummp-autoload`，然后重启server执行`./bin.reload`。
 :dog:
