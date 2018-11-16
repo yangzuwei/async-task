@@ -4,9 +4,9 @@ include dirname(__DIR__) . '/vendor/autoload.php';
 
 use Task\Lamb;
 
-$db = new \DB\MedooPDO();
+//$db = new \DB\MedooPDO();
 
-$lamb = new Lamb('Mary');
+$lamb = new \Task\Bubble();
 
 (new TaskClient\SwooleSender())->sendTask($lamb);
 

@@ -3,7 +3,9 @@
 namespace SwooleServer;
 
 use DB\MedooPDO;
-use Task\AbstractTask;
+use \Task\AbstractTask;
+
+include dirname(dirname(__DIR__)) . "/vendor/autoload.php";
 
 class TaskServer
 {
@@ -15,8 +17,8 @@ class TaskServer
 
     public function __construct()
     {
-        $this->rootPath = dirname(dirname(__DIR__));
-        $config = require_once $this->rootPath . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'swoole.php';
+        $this->rootPath = dirname(dirname(__DIR__));//require_once $this->rootPath . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR .
+        $config = getConfig('swoole');
 
         $this->serv = new \Swoole\Server($config['ip'], $config['swoole_task_server_port']);
         $this->serv->set(array(
@@ -73,18 +75,57 @@ class TaskServer
         //echo date('Y-m-d H:i:s') . "New AsyncTask[id=$task_id] ---> $data" . PHP_EOL;
         //处理任务 任务必须要实现 TaskInterface接口
         $task = unserialize($data);
+        $cate = '';
+        var_dump($task instanceof AbstractTask);
         if ($task instanceof AbstractTask) {
             $result = $this->runTask($task);
             $cate = 'object';
-            echo $cate . PHP_EOL;
-        } else {
-            $result = exec($task);//外部命令方式
+        }
+        if (is_string($task)) {
+            $result = $this->runCommand($task);
             $cate = 'command';
-            echo $cate . PHP_EOL;
+        }
+        echo $cate . PHP_EOL;
+        if ($cate == 'command') {
+            $result = $result == false ? '非法命令' : $result;
         }
         $serv->finish("this is task $cate $data and it's result is {$result} " . PHP_EOL);
     }
 
+    /**
+     * 运行外部命令
+     * @param $task
+     * @return string
+     */
+    protected function runCommand($task)
+    {
+        $task = $this->validCommand($task);
+        $result = false;
+        if ($task) {
+            $result = exec($task);//外部命令方式
+        }
+        return $result;
+    }
+
+    /**
+     * 只接受经过审核的合法shell
+     * @param $taskCommand
+     * @return bool
+     */
+    protected function validCommand($taskCommand)
+    {
+        $config = getConfig('commands');
+        if (in_array($taskCommand, $config)) {
+            return $taskCommand;
+        }
+        return false;
+    }
+
+    /**
+     * 运行任务对象
+     * @param AbstractTask $task
+     * @return null
+     */
     protected function runTask(AbstractTask $task)
     {
         $db = $this->tryTask($task);
@@ -104,6 +145,11 @@ class TaskServer
         return null;
     }
 
+    /**
+     * 尝试连接DB之后再运行任务
+     * @param AbstractTask $task
+     * @return mixed
+     */
     public function tryTask(AbstractTask $task)
     {
         $db = array_pop(self::$DB);
@@ -113,6 +159,11 @@ class TaskServer
         return $db;
     }
 
+    /**
+     * 选择可用的连接
+     * @param $task
+     * @return mixed|null
+     */
     public function chooseAvailable($task)
     {
         $db = null;
@@ -126,6 +177,9 @@ class TaskServer
         return $db;
     }
 
+    /**
+     * 初始化连接池
+     */
     public function InitDBPool()
     {
         self::$DB = [];
