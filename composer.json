@@ -17,6 +17,7 @@
       "SwooleServer\\": "src/server/",
       "Test\\": "tests"
     },
+    "classmap":["/Users/yangzuwei/Desktop/php/api/application/task"],
     "files": [
       "function/functions.php"
     ]
