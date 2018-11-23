@@ -87,10 +87,6 @@ class TaskServer
             $cate = 'command';
         }
 
-        echo $cate . PHP_EOL;
-        if ($cate == 'command') {
-            $result = $result == false ? '非法命令' : $result;
-        }
         $serv->finish("this is task $cate $data and it's result is {$result} " . PHP_EOL);
     }
 
@@ -101,26 +97,8 @@ class TaskServer
      */
     protected function runCommand($task)
     {
-        $task = $this->validCommand($task);
-        $result = false;
-        if ($task) {
-            $result = exec($task);//外部命令方式
-        }
+        $result = exec($task);//外部命令方式
         return $result;
-    }
-
-    /**
-     * 只接受经过审核的合法shell
-     * @param $taskCommand
-     * @return bool
-     */
-    protected function validCommand($taskCommand)
-    {
-        $config = getConfig('commands');
-        if (in_array($taskCommand, $config)) {
-            return $taskCommand;
-        }
-        return false;
     }
 
     /**
