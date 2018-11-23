@@ -63,4 +63,10 @@ CI中只用到了客户端，所以我们只需要放IP和端口字段就可以�
   "classmap":["/Users/yangzuwei/Desktop/php/api/application/task"],
 ```
 然后执行在本框架目录下执行` composer dummp-autoload`，然后重启server执行`./bin.reload`。
-:dog:
+:sun: :dog:
+
+## 在fpm中执行一些exec类的需要高权限的操作
+
+因为一般的fpm安全限制，我们一般无法使用  exec\shell_exec 之类的 PHP 内建函数。
+如果我们使用异步客户端将命令发给以高权限运行的server去执行，那么就可以成功了。
+例如我们希望通过网页上的某个按钮去发起服务器上的某shell脚本执行部署操作。
