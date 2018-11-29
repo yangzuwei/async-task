@@ -57,12 +57,13 @@ CI中只用到了客户端，所以我们只需要放IP和端口字段就可以�
 
 在application目录下（或者别的目录下也行)建立一个任务文件夹，用来存放异步任务，
 这些任务类都要继承自`AbstractTask`抽象类。
-在本框架中的composer.json文件中的`autoload`字段的`"classmap"`中加入CI框架中刚新建的task任务目录绝对路径，
+在本框架中的composer.json文件中的`autoload`字段的`"classmap"`中加入
+*CI框架*中刚新建的`task`任务目录绝对路径，
 例如:
 ```json
   "classmap":["/Users/yangzuwei/Desktop/php/api/application/task"],
 ```
-然后执行在本框架目录下执行` composer dummp-autoload`，然后重启server执行`./bin.reload`。
+然后执行在**本框架**根目录下执行` composer dump-autoload`，然后重启server执行`./bin.reload`。
 :sun: :dog:
 
 ## 在fpm中执行一些exec类的需要高权限的操作
