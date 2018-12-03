@@ -12,7 +12,7 @@ class Lamb extends AbstractTask
 
     public function sing()
     {
-        $result = $this->DB->query('select now()');
+        $result = $this->db->query('select now()');
         var_dump($result->fetch());
         echo 'i have a little lamb.'.time()." it's name is {$this->name} \n";
     }

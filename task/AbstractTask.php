@@ -6,14 +6,14 @@ use DB\MedooPDO;
 
 abstract class AbstractTask
 {
-    protected $DB;//此处应该由server 来分配资源
+    protected $db;//此处应该由server 来分配资源
 
     /**
      * 在server中可以注入资源
      */
     public function setDB(MedooPDO $db = null)
     {
-        $this->DB = $db;
+        $this->db = $db;
         return;
     }
 
@@ -29,6 +29,6 @@ abstract class AbstractTask
      */
     public function isDBGone()
     {
-        return $this->DB->error()[1] == 2006;
+        return $this->db->error()[1] == 2006;
     }
 }
