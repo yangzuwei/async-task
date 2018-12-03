@@ -34,24 +34,17 @@ Server中的DB资源都是在运行时进行注入的，运行时可以复用一
 ```
 
 方式二：执行某个外部命令
-执行的外部命令必须都要到config/commands.php中进行注册
+执行的外部命令需要进行审核，目前未进行权限和用户的相关处理
 （以免有些未经过审核的shell运行，危及系统安全，例如`rm -rf /`），
-格式为一维字符串数组，数组元素内容即为需要执行的命令。举例如下：
 
-1. config/commands.php中注册
-```php
-<?php
-return [
-    'echo "hello world"',
-];
 ```
 
 2. 使用客户端发送
 
 ```php
 <?php
-    $command = 'php /path/artisan send message';
-   （new TaskClient\SwooleSender())->sendCommand($command);
+$command = 'echo "hello world"';
+（new TaskClient\SwooleSender())->sendCommand($command);
 
 ```
 
@@ -64,10 +57,17 @@ CI中只用到了客户端，所以我们只需要放IP和端口字段就可以�
 
 在application目录下（或者别的目录下也行)建立一个任务文件夹，用来存放异步任务，
 这些任务类都要继承自`AbstractTask`抽象类。
-在本框架中的composer.json文件中的`autoload`字段的`"classmap"`中加入CI框架中刚新建的task任务目录绝对路径，
+在本框架中的composer.json文件中的`autoload`字段的`"classmap"`中加入
+*CI框架*中刚新建的`task`任务目录绝对路径，
 例如:
 ```json
   "classmap":["/Users/yangzuwei/Desktop/php/api/application/task"],
 ```
-然后执行在本框架目录下执行` composer dummp-autoload`，然后重启server执行`./bin.reload`。
-:dog:
+然后执行在**本框架**根目录下执行` composer dump-autoload`，然后重启server执行`./bin.reload`。
+:sun: :dog:
+
+## 在fpm中执行一些exec类的需要高权限的操作
+
+因为一般的fpm安全限制，我们一般无法使用  exec\shell_exec 之类的 PHP 内建函数。
+如果我们使用异步客户端将命令发给以高权限运行的server去执行，那么就可以成功了。
+例如我们希望通过网页上的某个按钮去发起服务器上的某shell脚本执行部署操作。
