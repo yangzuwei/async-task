@@ -18,7 +18,7 @@ class TaskServer
     public function __construct()
     {
         $this->rootPath = dirname(dirname(__DIR__));//require_once $this->rootPath . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR .
-        $config = getConfig('swoole');
+        $config = getConfig();
 
         $this->serv = new \Swoole\Server($config['ip'], $config['swoole_task_server_port']);
         $this->serv->set(array(

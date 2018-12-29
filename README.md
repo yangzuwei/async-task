@@ -50,7 +50,7 @@ $command = 'echo "hello world"';
 
 ## 在CI框架中使用的方法
 在CI框架中使用composer支持自动加载；
-composer require wilson_yang/sendtask,安装当前项目到vendor目录。
+`composer require wilson_yang/sendtask`,安装当前项目到vendor目录。
 
 在CI框架`config`目录中添加`swoole.php`注册文件，可直接拷贝当前框架中样式，
 CI中只用到了客户端，所以我们只需要放IP和端口字段就可以了.

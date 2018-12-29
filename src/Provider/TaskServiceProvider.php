@@ -1,0 +1,32 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: yangzuwei
+ * Date: 2018-12-28
+ * Time: 17:54
+ */
+
+namespace TaskClient;
+
+use Illuminate\Support\ServiceProvider;
+use SwooleServer\TaskServer;
+
+class TaskServiceProvider
+{
+    public function boot()
+    {
+        $this->publishes([
+            __DIR__.'/config/swoole.php' => config_path('swoole.php'),
+        ]);
+    }
+
+    public function register()
+    {
+        $this->app->singleton('tasksender', function () {
+            return new SwooleSender();
+        });
+        $this->app->singleton('taskserver', function () {
+            return new TaskServer();
+        });
+    }
+}

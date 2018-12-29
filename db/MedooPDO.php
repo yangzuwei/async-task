@@ -17,11 +17,11 @@ class MedooPDO extends Medoo
 
     public function __construct()
     {
-        $this->config = getConfig('db');
+        $this->config = getConfig();
         $options = [
             'database_type' => 'mysql',
             'database_name' => $this->config['database_name'],
-            'server' => $this->config['server'],
+            'server' => $this->config['database_host'],
             'username' => $this->config['username'],
             'password' => $this->config['password'],
             'options'=>[

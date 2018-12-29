@@ -18,15 +18,17 @@ abstract class AbstractSender
     {
         $config = [];
         //CI框架配置读取
-        if(defined('CI_VERSION')){
+        if (defined('CI_VERSION')) {
             $config = require APPPATH . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'swoole.php';
-
-        }else{
+        } elseif (function_exists('env')) { //laravel框架配置
+            $config = require config_path('swoole.php');
+        } else {
             $config = require dirname(dirname(__DIR__)) . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'swoole.php';
         }
         return $config;
     }
 
     public abstract function sendTask(AbstractTask $task);
+
     public abstract function sendCommand($command);
 }
