@@ -26,10 +26,10 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Wilson\\Async\\Provider\\TaskServiceProvider\\"
+        "Wilson\\Async\\Provider\\TaskServiceProvider"
       ],
       "aliases": {
-        "AsyncTask": "Wilson\\Async\\Facade\\"
+        "AsyncTask": "Wilson\\Async\\Facade\\Instance"
       }
     }
   }
