@@ -16,7 +16,7 @@ class TaskServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/config/swoole.php' => config_path('swoole.php'),
+            __DIR__ . '/../../config/swoole.php' => config_path('swoole.php')
         ]);
     }
 

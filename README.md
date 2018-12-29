@@ -66,6 +66,11 @@ CI中只用到了客户端，所以我们只需要放IP和端口字段就可以�
 然后执行在**本框架**根目录下执行` composer dump-autoload`，然后重启server执行`./bin.reload`。
 :sun: :dog:
 
+## 在laravel框架下使用的方法
+`composer require wilson_yang/sendtask`,安装当前项目到vendor目录。
+接下来发布配置文件到项目中：
+php artisan vendor:publish --provider="Wilson\Async\Provider\TaskServiceProvider"
+
 ## 在fpm中执行一些exec类的需要高权限的操作
 
 因为一般的fpm安全限制，我们一般无法使用  exec\shell_exec 之类的 PHP 内建函数。
