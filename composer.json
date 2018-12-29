@@ -16,8 +16,8 @@
       "TaskClient\\": "src/client/",
       "SwooleServer\\": "src/server/",
       "Test\\": "tests",
-      "Wilson\\Async\\Provider":"src/Provider/",
-      "Wilson\\Async\\Facade": "src/Facade/"
+      "Wilson\\Async\\Provider\\":"src/Provider/",
+      "Wilson\\Async\\Facade\\": "src/Facade/"
     },
     "files": [
       "function/functions.php"
@@ -26,10 +26,10 @@
   "extra": {
     "laravel": {
       "providers": [
-        "Wilson\\Async\\Provider\\TaskServiceProvider"
+        "Wilson\\Async\\Provider\\TaskServiceProvider\\"
       ],
       "aliases": {
-        "AsyncTask": "Wilson\\Async\\Facade\\Instance"
+        "AsyncTask": "Wilson\\Async\\Facade\\"
       }
     }
   }
