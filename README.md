@@ -33,7 +33,8 @@ Server中的DB资源都是在运行时进行注入的，运行时可以复用一
     (new TaskClient\SwooleSender())->sendTask($lamb);
 ```
 
-方式二：执行某个外部命令
+方式二：执行某个外部命令(推荐方式)
+建议在各种MVC框架下使用**命令行**形式去执行有关任务，可以避免再去重新学习适应当前这个框架中的逻辑。
 执行的外部命令需要进行审核，目前未进行权限和用户的相关处理
 （以免有些未经过审核的shell运行，危及系统安全，例如`rm -rf /`），
 
@@ -49,6 +50,8 @@ $command = 'echo "hello world"';
 ```
 
 ## 在CI框架中使用的方法
+可以按照上述方式二写命令行形式执行。
+
 在CI框架中使用composer支持自动加载；
 `composer require wilson_yang/sendtask`,安装当前项目到vendor目录。
 
@@ -70,6 +73,13 @@ CI中只用到了客户端，所以我们只需要放IP和端口字段就可以�
 `composer require wilson_yang/sendtask`,安装当前项目到vendor目录。
 接下来发布配置文件到项目中：
 php artisan vendor:publish --provider="Wilson\Async\Provider\TaskServiceProvider"
+可以按照上述方式二写命令行形式发送类似`php /path/xxx/artisan command`到server中执行。
+
+如果自己编写了在当前 Laravel 项目中启动server程序（
+例如`php artisan task:server start`，
+暂时未实现样例，可以自己参考`Laravel`文档实现，
+思路:可以借助 exec 类函数去调用 本项目中的`bin`文件夹下的 shell 脚本，
+或者使用composer.json 中加入 classmap 字段加载task任务文件夹也可使用（类似CI）。
 
 ## 在fpm中执行一些exec类的需要高权限的操作
 
