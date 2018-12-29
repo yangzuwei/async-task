@@ -11,7 +11,7 @@ namespace Wilson\Async\Provider;
 use Illuminate\Support\ServiceProvider;
 use SwooleServer\TaskServer;
 
-class TaskServiceProvider
+class TaskServiceProvider extends ServiceProvider
 {
     public function boot()
     {
