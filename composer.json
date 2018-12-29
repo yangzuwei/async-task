@@ -20,5 +20,15 @@
     "files": [
       "function/functions.php"
     ]
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "Task\\Async\\Provider\\TaskServiceProvider"
+      ],
+      "aliases": {
+        "Debugbar": "Task\\Async\\Facade\\Instance"
+      }
+    }
   }
 }

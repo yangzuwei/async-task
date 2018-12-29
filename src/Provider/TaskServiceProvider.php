@@ -6,7 +6,7 @@
  * Time: 17:54
  */
 
-namespace TaskClient;
+namespace Task\Async\Provider;
 
 use Illuminate\Support\ServiceProvider;
 use SwooleServer\TaskServer;
