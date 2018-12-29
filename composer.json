@@ -15,7 +15,9 @@
       "DB\\": "db/",
       "TaskClient\\": "src/client/",
       "SwooleServer\\": "src/server/",
-      "Test\\": "tests"
+      "Test\\": "tests",
+      "Task\\Async\\Provider":"src/Provider/",
+      "Task\\Async\\Facade": "src/Facade/"
     },
     "files": [
       "function/functions.php"
