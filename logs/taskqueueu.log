@@ -1,13 +1,9 @@
-[2018-12-10 17:24:45 ^27452.9]	WARNING	swSignal_callback (ERROR 706): signal[1] callback is null.
-[2018-12-10 17:24:45 ^27451.8]	WARNING	swSignal_callback (ERROR 706): signal[1] callback is null.
-[2018-12-10 17:24:45 ^27449.6]	WARNING	swSignal_callback (ERROR 706): signal[1] callback is null.
-[2018-12-10 17:24:45 ^27447.4]	WARNING	swSignal_callback (ERROR 706): signal[1] callback is null.
-[2018-12-10 17:24:45 $27444.0]	WARNING	swSignal_callback (ERROR 706): signal[1] callback is null.
-[2018-12-10 17:24:45 ^27448.5]	WARNING	swSignal_callback (ERROR 706): signal[1] callback is null.
-[2018-12-10 17:24:45 ^27446.3]	WARNING	swSignal_callback (ERROR 706): signal[1] callback is null.
-[2018-12-10 17:24:45 ^27450.7]	WARNING	swSignal_callback (ERROR 706): signal[1] callback is null.
-[2018-12-10 17:24:45 #27443.2]	WARNING	swSignal_callback (ERROR 706): signal[1] callback is null.
-[2018-12-10 17:24:45 *27454.1]	WARNING	swSignal_callback (ERROR 706): signal[1] callback is null.
-[2018-12-10 17:24:45 *27453.0]	WARNING	swSignal_callback (ERROR 706): signal[1] callback is null.
-[2018-12-10 17:24:45 ^27445.2]	WARNING	swSignal_callback (ERROR 706): signal[1] callback is null.
-[2018-12-29 14:44:48 #27443.2]	NOTICE	Server is shutdown now.
+Dispath s:28:"echo "hello\n">>logs/123.txt"; ---> AsyncTask: id=0
+ sh: logs/123.txt: No such file or directory
+2018-12-29 16:34:07Finished task [id=0] ---> this is task command s:28:"echo "hello\n">>logs/123.txt"; and it's result is  
+
+Dispath s:23:"echo "hello\n">>123.txt"; ---> AsyncTask: id=1
+ sh: 123.txt: Permission denied
+2018-12-29 16:37:43Finished task [id=1] ---> this is task command s:23:"echo "hello\n">>123.txt"; and it's result is  
+
+

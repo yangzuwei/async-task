@@ -6,7 +6,7 @@
  * Time: 上午11:44
  */
 
-function getConfig($configFileName='swoole')
+function getConfig($configFileName = 'swoole')
 {
-    return require './config/'.$configFileName.'.php';
+    return require dirname(__DIR__).'/config/'.$configFileName.'.php';
 }
