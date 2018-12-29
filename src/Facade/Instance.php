@@ -6,7 +6,7 @@
  * Time: 11:41
  */
 
-namespace Task\Async\Facade;
+namespace Wilson\Async\Facade;
 
 use Illuminate\Support\Facades\Facade;
 
