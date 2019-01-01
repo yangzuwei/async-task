@@ -27,27 +27,25 @@ Server中的DB资源都是在运行时进行注入的，运行时可以复用一
 ## 添加任务
 在其他地方使用的时候只需要类似如下方式
 
-方式一：在 `task` 文件夹中继承 `AbstractTask` 抽象任务。按照例子中去实现
-```
-    $lamb = new Lamb('Mary');
-    (new TaskClient\SwooleSender())->sendTask($lamb);
-```
-
-方式二：执行某个外部命令(推荐方式)
+方式一：执行某个外部命令(推荐方式)
 建议在各种MVC框架下使用**命令行**形式去执行有关任务，可以避免再去重新学习适应当前这个框架中的逻辑。
 执行的外部命令需要进行审核，目前未进行权限和用户的相关处理
 （以免有些未经过审核的shell运行，危及系统安全，例如`rm -rf /`），
 
-```
-
-2. 使用客户端发送
-
+使用方式
 ```php
 <?php
 $command = 'echo "hello world"';
 （new TaskClient\SwooleSender())->sendCommand($command);
 
 ```
+
+方式二：在 `task` 文件夹中继承 `AbstractTask` 抽象任务。按照例子中去实现
+```
+    $lamb = new Lamb('Mary');
+    (new TaskClient\SwooleSender())->sendTask($lamb);
+```
+不同项目中，如果使用这种方式，需要注意在server项目中注册client的加载路径，否则会出现命名空间找不到的问题。如下介绍了不同框架中使用该方式的方法：
 
 ## 在CI框架中使用的方法
 可以按照上述方式二写命令行形式执行。
