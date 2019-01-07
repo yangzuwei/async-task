@@ -2,7 +2,7 @@
 return [
     'database_type' => 'mysql',
     'database_host' => '127.0.0.1',
-    'database_name' => 'kang',
+    'database_name' => 'school',
     'username' => 'root',
     'password' => 'root',
 
