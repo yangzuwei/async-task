@@ -1,6 +1,6 @@
 # async-task
 simple task tools by swoole
-按照swoole官网中的例子改写的
+
 客户端有两种实现方式：
 1. 使用 swoole client 实现
 2. 使用 stream_socket_client 实现
@@ -48,14 +48,14 @@ $command = 'echo "hello world"';
 不同项目中，如果使用这种方式，需要注意在server项目中注册client的加载路径，否则会出现命名空间找不到的问题。如下介绍了不同框架中使用该方式的方法：
 
 ## 在CI框架中使用的方法
-可以按照上述方式二写命令行形式执行。
 
-在CI框架中使用composer支持自动加载；
-`composer require wilson_yang/sendtask`,安装当前项目到vendor目录。
-
-在CI框架`config`目录中添加`swoole.php`注册文件，可直接拷贝当前框架中样式，
+### 安装
+`composer require wilson_yang/sendtask`
+### 配置
+- 开启在CI框架中使用composer支持自动加载；
+- 在CI框架`config`目录中添加`swoole.php`注册文件，可直接拷贝当前框架中样式，
 CI中只用到了客户端，所以我们只需要放IP和端口字段就可以了.
-
+- 如果不使用上述方式二还需要:
 在application目录下（或者别的目录下也行)建立一个任务文件夹，用来存放异步任务，
 这些任务类都要继承自`AbstractTask`抽象类。
 在本框架中的composer.json文件中的`autoload`字段的`"classmap"`中加入
@@ -67,17 +67,22 @@ CI中只用到了客户端，所以我们只需要放IP和端口字段就可以�
 然后执行在**本框架**根目录下执行` composer dump-autoload`，然后重启server执行`./bin.reload`。
 :sun: :dog:
 
+
+
 ## 在laravel框架下使用的方法
-`composer require wilson_yang/sendtask`,安装当前项目到vendor目录。
-接下来发布配置文件到项目中：
-php artisan vendor:publish --provider="Wilson\Async\Provider\TaskServiceProvider"
+### 安装
+`composer require wilson_yang/sendtask`
+### 发布
+`php artisan vendor:publish --provider="Wilson\Async\Provider\TaskServiceProvider"`
+
+### 使用
 可以按照上述方式二写命令行形式发送类似`php /path/xxx/artisan command`到server中执行。
 
 如果自己编写了在当前 Laravel 项目中启动server程序（
 例如`php artisan task:server start`，
 暂时未实现样例，可以自己参考`Laravel`文档实现，
 思路:可以借助 exec 类函数去调用 本项目中的`bin`文件夹下的 shell 脚本，
-或者使用composer.json 中加入 classmap 字段加载task任务文件夹也可使用（类似CI）。
+或者使用composer.json 中加入 classmap 字段加载task任务文件夹也可使用（类似上述CI）。
 
 ## 在fpm中执行一些exec类的需要高权限的操作
 
