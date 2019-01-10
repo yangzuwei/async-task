@@ -44,18 +44,34 @@ class TaskServer
         $this->serv->start();
     }
 
+    /**
+     * server启动时记录主进程号方便编写shell脚本
+     * @param $serv
+     */
     public function onStart($serv)
     {
         //获取主进程ID 方便关闭和reload
         file_put_contents($this->rootPath . DIRECTORY_SEPARATOR . 'bin/swoole.pid', $serv->master_pid);
     }
 
+    /**
+     * worker进程启动时回调 每个进程一个连接池 不可以在进程间共享连接池资源
+     * @param $serv
+     * @param $id
+     */
     public function onWorkerStart($serv, $id)
     {
         //初始化连接池
         $this->InitDBPool();
     }
 
+    /**
+     * 数据接收
+     * @param $serv
+     * @param $fd
+     * @param $from_id
+     * @param $data
+     */
     public function onReceive($serv, $fd, $from_id, $data)
     {
         //投递异步任务
@@ -68,6 +84,13 @@ class TaskServer
         }
     }
 
+    /**
+     * 任务回调
+     * @param $serv
+     * @param $task_id
+     * @param $from_id
+     * @param $data
+     */
     public function onTask($serv, $task_id, $from_id, $data)
     {
         //echo date('Y-m-d H:i:s') . "New AsyncTask[id=$task_id] ---> $data" . PHP_EOL;
@@ -159,17 +182,29 @@ class TaskServer
 
     /**
      * 初始化连接池
+     * @return void
      */
     public function InitDBPool()
     {
         self::$DB = [];
         for ($i = 0; $i < self::DB_POOL_SIZE; $i++) {
-            self::$DB[] = new MedooPDO();
+            try{
+                self::$DB[] = new MedooPDO();
+            }catch (\Error $e){
+                echo $e->getMessage();
+            }finally{
+                return ;
+            }
         }
         return;
     }
 
-    //处理异步任务的结果
+    /**
+     * 处理异步任务的结果
+     * @param $serv
+     * @param $task_id
+     * @param $data
+     */
     public function onFinish($serv, $task_id, $data)
     {
         echo date('Y-m-d H:i:s') . "Finished task [id=$task_id] ---> $data" . PHP_EOL;
