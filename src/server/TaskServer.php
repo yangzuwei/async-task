@@ -75,7 +75,7 @@ class TaskServer
         $task = unserialize($data);
         $cate = '';
 
-        if (is_object($task)&&$task instanceof AbstractTask) {
+        if (is_object($task) && $task instanceof AbstractTask) {
             $result = $this->runTask($task);
             $cate = 'object';
         }
@@ -145,12 +145,14 @@ class TaskServer
     public function chooseAvailable($task)
     {
         $db = null;
+        $i = 0;
         //从连接池中获取剩余可用的资源
-        while (self::$DB) {
+        while (self::$DB && $i < self::DB_POOL_SIZE) {
             $db = $this->tryTask($task);
             if ($task->isDBGone() == false) {
                 break;
             }
+            $i++;
         }
         return $db;
     }
