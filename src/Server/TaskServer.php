@@ -1,6 +1,6 @@
 <?php
 
-namespace SwooleServer;
+namespace Server;
 
 use DB\MedooPDO;
 use \Task\AbstractTask;

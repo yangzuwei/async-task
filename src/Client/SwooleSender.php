@@ -3,7 +3,7 @@
  * 使用swoole客户端
  */
 
-namespace TaskClient;
+namespace Client;
 
 use Task\AbstractTask;
 

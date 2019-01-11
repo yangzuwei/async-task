@@ -8,6 +8,6 @@ use Task\Lamb;
 
 $lamb = new Lamb('Mary');
 
-(new TaskClient\SwooleSender())->sendTask($lamb);
+(new Client\SwooleSender())->sendTask($lamb);
 
-(new TaskClient\CommonSender())->sendCommand('echo "123" >> tests/number.txt');
+(new Client\CommonSender())->sendCommand('echo "123" >> tests/number.txt');

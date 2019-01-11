@@ -6,7 +6,7 @@
  * Time: 下午5:26
  */
 
-namespace TaskClient;
+namespace Client;
 
 use Task\AbstractTask;
 

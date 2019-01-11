@@ -9,7 +9,7 @@
 namespace Wilson\Async\Provider;
 
 use Illuminate\Support\ServiceProvider;
-use SwooleServer\TaskServer;
+use Server\TaskServer;
 
 class TaskServiceProvider extends ServiceProvider
 {

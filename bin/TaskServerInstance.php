@@ -4,4 +4,4 @@ if(file_exists($autoloader)){
 	include $autoloader;
 }
 
-(new SwooleServer\TaskServer())->run();
+(new Server\TaskServer())->run();
