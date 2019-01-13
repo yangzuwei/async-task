@@ -71,7 +71,7 @@ CI中只用到了客户端，所以我们只需要放IP和端口字段就可以�
 
 ## 在laravel框架下使用的方法
 ### 安装
-`composer require wilson_yang/sendtask`
+`composer require wilson_yang/sendtask dev-dev`
 ### 发布
 `php artisan vendor:publish --provider="Wilson\Async\Provider\TaskServiceProvider"`
 
