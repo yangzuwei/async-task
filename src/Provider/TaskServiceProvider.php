@@ -9,12 +9,13 @@
 namespace Wilson\Async\Provider;
 
 use Illuminate\Support\ServiceProvider;
-use Server\TaskServer;
+use Wilson\Async\Server\TaskServer;
+use Wilson\Async\Console\ServerInstance;
 
 class TaskServiceProvider extends ServiceProvider
 {
     protected $commands = [
-
+        ServerInstance::class,
     ];
 
     public function boot()
