@@ -75,14 +75,12 @@ CI中只用到了客户端，所以我们只需要放IP和端口字段就可以�
 ### 发布
 `php artisan vendor:publish --provider="Wilson\Async\Provider\TaskServiceProvider"`
 
-### 使用
-可以按照上述方式二写命令行形式发送类似`php /path/xxx/artisan command`到server中执行。
+### 启动服务器
+`php artisan swoole:task start|stop|reload|restart`。
 
-如果自己编写了在当前 Laravel 项目中启动server程序（
-例如`php artisan task:server start`，
-暂时未实现样例，可以自己参考`Laravel`文档实现，
-思路:可以借助 exec 类函数去调用 本项目中的`bin`文件夹下的 shell 脚本，
-或者使用composer.json 中加入 classmap 字段加载task任务文件夹也可使用（类似上述CI）。
+### 编写任务
+
+继承 `Wilson\Async\Task\AbstractTask` 抽象类即可，需要实现其中的 `handle`方法。
 
 ## 在fpm中执行一些exec类的需要高权限的操作
 
