@@ -3,9 +3,9 @@
  * 使用swoole客户端
  */
 
-namespace Client;
+namespace Wilson\Async\Client;
 
-use Task\AbstractTask;
+use Wilson\Async\Task\AbstractTask;
 
 class SwooleSender extends AbstractSender
 {

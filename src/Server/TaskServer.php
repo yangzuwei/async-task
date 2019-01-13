@@ -1,9 +1,9 @@
 <?php
 
-namespace Server;
+namespace Wilson\Async\Server;
 
-use DB\MedooPDO;
-use \Task\AbstractTask;
+use Wilson\Async\DB\MedooPDO;
+use Wilson\Async\Task\AbstractTask;
 
 class TaskServer
 {

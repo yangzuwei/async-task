@@ -1,8 +1,8 @@
 <?php
 
-namespace Task;
+namespace Wilson\Async\Task;
 
-use DB\MedooPDO;
+use Wilson\Async\DB\MedooPDO;
 
 abstract class AbstractTask
 {

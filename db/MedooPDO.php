@@ -7,7 +7,7 @@
  * Time: 16:57
  */
 
-namespace DB;
+namespace Wilson\Async\DB;
 
 use Medoo\Medoo;
 

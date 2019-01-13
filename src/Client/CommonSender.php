@@ -7,9 +7,9 @@
  * Time: 下午12:40
  */
 
-namespace Client;
+namespace Wilson\Async\Client;
 
-use Task\AbstractTask;
+use Wilson\Async\Task\AbstractTask;
 
 class CommonSender extends AbstractSender
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace Task;
+namespace Wilson\Async\Task;
 
 class Lamb extends AbstractTask
 {

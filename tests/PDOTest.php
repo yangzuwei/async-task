@@ -10,7 +10,7 @@ class DB
     public function init()
     {
         for ($i = 0; $i < 5; $i++) {
-            self::$db[] = new \DB\MedooPDO();
+            self::$db[] = new Wilson\Async\DB\MedooPDO();
         }
     }
 

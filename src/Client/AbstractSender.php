@@ -6,9 +6,9 @@
  * Time: 下午5:26
  */
 
-namespace Client;
+namespace Wilson\Async\Client;
 
-use Task\AbstractTask;
+use Wilson\Async\Task\AbstractTask;
 
 abstract class AbstractSender
 {

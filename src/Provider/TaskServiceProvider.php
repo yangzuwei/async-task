@@ -13,6 +13,10 @@ use Server\TaskServer;
 
 class TaskServiceProvider extends ServiceProvider
 {
+    protected $commands = [
+
+    ];
+
     public function boot()
     {
         $this->publishes([
@@ -28,5 +32,7 @@ class TaskServiceProvider extends ServiceProvider
         $this->app->singleton('taskserver', function () {
             return new TaskServer();
         });
+
+        $this->commands($this->commands);
     }
 }
