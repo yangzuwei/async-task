@@ -11,13 +11,8 @@
   },
   "autoload": {
     "psr-4": {
-      "Task\\": "task/",
-      "DB\\": "db/",
-      "TaskClient\\": "src/client/",
-      "SwooleServer\\": "src/server/",
-      "Test\\": "tests",
-      "Wilson\\Async\\Provider\\":"src/Provider/",
-      "Wilson\\Async\\Facade\\": "src/Facade/"
+      "Wilson\\Async\\": "src/",
+      "Test\\": "tests"
     },
     "files": [
       "function/functions.php"
