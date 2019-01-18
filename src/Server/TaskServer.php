@@ -16,8 +16,27 @@ class TaskServer
     public function __construct()
     {
         $this->rootPath = dirname(dirname(__DIR__));//require_once $this->rootPath . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR .
-        $config = getConfig();
+        if(extension_loaded('swoole')){
+            $this->initServer();
+        }else{
+            exit('Make sure you have the extension swoole!');
+        }
+    }
 
+    public function run()
+    {
+        $this->serv->on('Receive', array($this, 'onReceive'));
+        // bind callback
+        $this->serv->on('Task', array($this, 'onTask'));
+        $this->serv->on('Finish', array($this, 'onFinish'));
+        $this->serv->on('Start', array($this, 'onStart'));
+        $this->serv->on('WorkerStart', array($this, 'onWorkerStart'));
+        $this->serv->start();
+    }
+
+    public function initServer()
+    {
+        $config = getConfig();
         $this->serv = new \Swoole\Server($config['ip'], $config['swoole_task_server_port']);
         $this->serv->set(array(
             'worker_num' => $config['swoole_work_num'],   //一般设置为服务器CPU数的1-4倍
@@ -31,17 +50,6 @@ class TaskServer
             'user' => 'nginx',
             'group' => 'nginx',
         ));
-    }
-
-    public function run()
-    {
-        $this->serv->on('Receive', array($this, 'onReceive'));
-        // bind callback
-        $this->serv->on('Task', array($this, 'onTask'));
-        $this->serv->on('Finish', array($this, 'onFinish'));
-        $this->serv->on('Start', array($this, 'onStart'));
-        $this->serv->on('WorkerStart', array($this, 'onWorkerStart'));
-        $this->serv->start();
     }
 
     /**
