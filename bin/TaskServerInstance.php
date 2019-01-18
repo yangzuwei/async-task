@@ -11,10 +11,4 @@ foreach ($autoloadPaths as $path) {
     }
 }
 
-function getConfig()
-{
-    $config = require dirname(__DIR__) . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'swoole.php';
-    return $config;
-}
-
 (new \Wilson\Async\Server\TaskServer())->run();
