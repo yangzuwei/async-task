@@ -117,9 +117,8 @@ class TaskServer
      */
     protected function runCommand($task)
     {
-        echo "now exec string is :{$task} ".PHP_EOL;
-        var_dump(getenv());
         $result = exec($task);//外部命令方式
+        echo "now exec string is :{$task} result is {$result}".PHP_EOL;
         return $result;
     }
 
