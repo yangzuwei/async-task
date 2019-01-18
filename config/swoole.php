@@ -11,4 +11,6 @@ return [
     'swoole_work_num' => 2,   //一般设置为服务器CPU数的1-4倍
     'swoole_is_daemonize' => 1,//以守护进程执行
     'swoole_task_worker_num' => 8,//task进程的数量
+    'user'=>'root',//run as root user
+    'group'=>'root',//run as root group
 ];

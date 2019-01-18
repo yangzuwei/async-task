@@ -16,9 +16,9 @@ class TaskServer
     public function __construct()
     {
         $this->rootPath = dirname(dirname(__DIR__));//require_once $this->rootPath . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR .
-        if(extension_loaded('swoole')){
+        if (extension_loaded('swoole')) {
             $this->initServer();
-        }else{
+        } else {
             exit('Make sure you have the extension swoole!');
         }
     }
@@ -47,8 +47,8 @@ class TaskServer
             "task_ipc_mode " => 3,  //使用消息队列通信，并设置为争抢模式
             "log_file" => $this->rootPath . "/logs/taskqueueu.log",//日志
             'chroot' => $this->rootPath,
-            'user' => 'nginx',
-            'group' => 'nginx',
+            'user' => $config['user'],
+            'group' => $config['group'],
         ));
     }
 
@@ -196,12 +196,12 @@ class TaskServer
     {
         self::$DB = [];
         for ($i = 0; $i < self::DB_POOL_SIZE; $i++) {
-            try{
+            try {
                 self::$DB[] = new MedooPDO();
-            }catch (\Error $e){
+            } catch (\Error $e) {
                 echo $e->getMessage();
-            }finally{
-                return ;
+            } finally {
+                return;
             }
         }
         return;
