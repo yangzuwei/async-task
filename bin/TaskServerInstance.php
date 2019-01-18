@@ -4,4 +4,4 @@ if(file_exists($autoloader)){
 	include $autoloader;
 }
 
-(new Server\TaskServer())->run();
+(new \Wilson\Async\Server\TaskServer())->run();
