@@ -10,4 +10,4 @@ $lamb = new Lamb('Mary');
 
 (new Wilson\Async\Client\SwooleSender())->sendTask($lamb);
 
-(new Wilson\Async\Client\CommonSender())->sendCommand('echo "123" >> tests/number.txt');
+(new Wilson\Async\Client\SwooleSender())->sendCommand('echo "123" >> /Users/yangzuwei/Code/github/async-task/tests/number.txt');

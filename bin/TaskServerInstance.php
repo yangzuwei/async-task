@@ -7,6 +7,7 @@ $autoloadPaths = [
 foreach ($autoloadPaths as $path) {
     if (file_exists($path)) {
         include $path;
+        break;
     }
 }
 (new \Wilson\Async\Server\TaskServer())->run();

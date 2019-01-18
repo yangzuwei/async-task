@@ -25,11 +25,11 @@ class TaskServer
 
     public function run()
     {
+        var_dump($this->serv->setting);
         $this->serv->on('Receive', array($this, 'onReceive'));
         // bind callback
         $this->serv->on('Task', array($this, 'onTask'));
         $this->serv->on('Finish', array($this, 'onFinish'));
-        $this->serv->on('Start', array($this, 'onStart'));
         $this->serv->on('WorkerStart', array($this, 'onWorkerStart'));
         $this->serv->start();
     }
@@ -39,27 +39,18 @@ class TaskServer
         $config = getConfig();
         $this->serv = new \Swoole\Server($config['ip'], $config['swoole_task_server_port']);
         $this->serv->set(array(
+            'pid_file' => $this->rootPath . DIRECTORY_SEPARATOR . 'bin/swoole.pid',
             'worker_num' => $config['swoole_work_num'],   //一般设置为服务器CPU数的1-4倍
             'daemonize' => $config['swoole_is_daemonize'],  //以守护进程执行
             'max_request' => 10000,
             'dispatch_mode' => 2,
             'task_worker_num' => $config['swoole_task_worker_num'],  //task进程的数量
             "task_ipc_mode " => 3,  //使用消息队列通信，并设置为争抢模式
-            "log_file" => $this->rootPath . "/logs/taskqueueu.log",//日志
+            "log_file" => $this->rootPath . "/logs/task.log",//日志
             'chroot' => $this->rootPath,
             'user' => $config['user'],//run as user
             'group' => $config['group'],//run as group
         ));
-    }
-
-    /**
-     * server启动时记录主进程号方便编写shell脚本
-     * @param $serv
-     */
-    public function onStart($serv)
-    {
-        //获取主进程ID 方便关闭和reload
-        file_put_contents($this->rootPath . DIRECTORY_SEPARATOR . 'bin/swoole.pid', $serv->master_pid);
     }
 
     /**
