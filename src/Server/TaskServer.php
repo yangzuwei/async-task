@@ -126,6 +126,7 @@ class TaskServer
      */
     protected function runCommand($task)
     {
+        echo "now exec string is :{$task} \n";
         $result = exec($task);//外部命令方式
         return $result;
     }
