@@ -47,8 +47,8 @@ class TaskServer
             "task_ipc_mode " => 3,  //使用消息队列通信，并设置为争抢模式
             "log_file" => $this->rootPath . "/logs/taskqueueu.log",//日志
             'chroot' => $this->rootPath,
-            'user' => $config['user'],
-            'group' => $config['group'],
+            'user' => $config['user'],//run as user
+            'group' => $config['group'],//run as group
         ));
     }
 
