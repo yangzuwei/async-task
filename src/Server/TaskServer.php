@@ -25,7 +25,6 @@ class TaskServer
 
     public function run()
     {
-        var_dump($this->serv->setting);
         $this->serv->on('Receive', array($this, 'onReceive'));
         // bind callback
         $this->serv->on('Task', array($this, 'onTask'));
@@ -47,7 +46,6 @@ class TaskServer
             'task_worker_num' => $config['swoole_task_worker_num'],  //task进程的数量
             "task_ipc_mode " => 3,  //使用消息队列通信，并设置为争抢模式
             "log_file" => $this->rootPath . "/logs/task.log",//日志
-            'chroot' => $this->rootPath,
             'user' => $config['user'],//run as user
             'group' => $config['group'],//run as group
         ));
