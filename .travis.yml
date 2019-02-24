@@ -9,11 +9,3 @@ php:
 
 matrix:
   fast_finish: true
-
-cache:
-  directories:
-    - $HOME/.composer/cache
-
-before_install:
-  - composer self-update
-  - composer validate
